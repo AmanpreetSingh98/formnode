@@ -33,6 +33,13 @@ app.post('/post', (req,res) => {
     })
 })
 
+app.get('/mcq', (req, res) => {
+    db.collection('questions').find().toArray( (err, result) => {
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
 mongoclient.connect(mongoport, (err, client) => {
     if(err) console.log('Error in mongoclient');
     db = client.db('form');
