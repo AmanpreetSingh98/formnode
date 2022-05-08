@@ -40,6 +40,16 @@ app.get('/mcq', (req, res) => {
     })
 })
 
+app.post('/addmcq', (req, res) => {
+    db.collection('questions').count((err,count) => {
+        req.body.id=count+1;
+        db.collection('questions').insertOne(req.body, (err, result) => {
+            if(err) throw err;
+            res.send(result)
+        })
+    })
+})
+
 mongoclient.connect(mongoport, (err, client) => {
     if(err) console.log('Error in mongoclient');
     db = client.db('form');
